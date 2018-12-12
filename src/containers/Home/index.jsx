@@ -1,6 +1,6 @@
 import React from 'react'
 import logo from '../../public/image/logo.png'
-import TopNav from '../../components/TopNav/index';
+import TopNav from '../../components/TopNav';
 
 const Home = () => (
     <div style={Styles.Content}>

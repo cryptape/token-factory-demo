@@ -2,13 +2,13 @@
  * Created by 包俊 on 2018/8/14.
  */
 import React from 'react';
-import TopNav from '../../components/TopNav/index';
-import SupplyInput from '../../components/Input/index';
-import NameInput from '../../components/Input/index';
-import DecimalInput from '../../components/Input/index';
-import SymbolInput from '../../components/Input/index';
+import TopNav from '../../components/TopNav';
+import SupplyInput from '../../components/Input';
+import NameInput from '../../components/Input';
+import DecimalInput from '../../components/Input';
+import SymbolInput from '../../components/Input';
 import { deploy } from '../../contracts/tokenStore';
-import Button from '../../components/Button/index';
+import Button from '../../components/Button';
 
 let input_totally_supply = 'eg. 10';
 let input_name = 'eg. Nervos';
@@ -80,11 +80,12 @@ export default class Create extends React.Component {
 
   _create() {
     if (
-      this.state.input_totally_supply !== '' &&
-      this.state.input_name !== '' &&
-      this.state.input_decimal_places !== '' &&
-      this.state.input_symbol !== ''
+      this.state.input_totally_supply &&
+      this.state.input_name &&
+      this.state.input_decimal_places &&
+      this.state.input_symbol
     ) {
+      alert('start');
       window.onSignError = (position, protocol) =>
         this._onSignError(position, protocol);
       this.setState({ button_text: 'Submitting...', button_status: false });

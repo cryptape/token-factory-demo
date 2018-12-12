@@ -3,10 +3,10 @@
  */
 import React from 'react';
 import { Styles } from './style';
-import InputFrom from '../../../components/Input/index';
-import InputTo from '../../../components/Input/index';
-import InputAmount from '../../../components/Input/index';
-import Button from '../../../components/Button/index';
+import InputFrom from '../../../components/Input';
+import InputTo from '../../../components/Input';
+import InputAmount from '../../../components/Input';
+import Button from '../../../components/Button';
 import { transferAllowance } from '../../../contracts/tokenStore';
 import appchain from '../../../appchain';
 
@@ -67,11 +67,7 @@ export default class ApproveAccount extends React.Component {
   }
 
   _transferFrom() {
-    if (
-      this.state.to !== '' &&
-      this.state.from !== '' &&
-      this.state.amount !== ''
-    ) {
+    if (this.state.to && this.state.from && this.state.amount) {
       window.onSignError = (position, protocol) =>
         this._onSignError(position, protocol);
       window.onSignSuccessful = (position, protocol) =>

@@ -1,25 +1,25 @@
 /**
  * Created by 包俊 on 2018/8/16.
  */
-import React from "react";
-import { Styles } from "./style";
-import InputOwner from "../../../components/Input/index";
-import InputSpender from "../../../components/Input/index";
-import Button from "../../../components/Button/index";
-import { checkAllowance } from "../../../contracts/tokenStore";
+import React from 'react';
+import { Styles } from './style';
+import InputOwner from '../../../components/Input';
+import InputSpender from '../../../components/Input';
+import Button from '../../../components/Button';
+import { checkAllowance } from '../../../contracts/tokenStore';
 
-const ownerHint = "eg. 0x1ce21fa";
-const spenderHint = "eg. 0x1ce21fa";
+const ownerHint = 'eg. 0x1ce21fa';
+const spenderHint = 'eg. 0x1ce21fa';
 
 export default class ApproveAccount extends React.Component {
   constructor() {
     super();
     this.state = {
-      owner: "",
-      spender: "",
+      owner: '',
+      spender: '',
       button_status: true,
-      button_text: "Check Allowance",
-      result: ""
+      button_text: 'Check Allowance',
+      result: ''
     };
   }
 
@@ -32,14 +32,14 @@ export default class ApproveAccount extends React.Component {
           accounts.
         </text>
         <InputOwner
-          title={"owner"}
+          title={'owner'}
           value={ownerHint}
           inputChanged={input => {
             this.setState({ owner: input });
           }}
         />
         <InputSpender
-          title={"spender"}
+          title={'spender'}
           value={spenderHint}
           inputChanged={input => {
             this.setState({ spender: input });
@@ -55,8 +55,8 @@ export default class ApproveAccount extends React.Component {
     );
   }
   _checkAllowance() {
-    if (this.state.owner !== "" && this.state.spender !== "") {
-      this.setState({ button_status: false, button_text: "Submitting..." });
+    if (!this.state.owner && !this.state.spender) {
+      this.setState({ button_status: false, button_text: 'Submitting...' });
       checkAllowance(
         this.props.contractAddress,
         this.state.owner,
@@ -66,19 +66,19 @@ export default class ApproveAccount extends React.Component {
           this.setState({
             result:
               this.state.spender +
-              " is allowed to spend " +
+              ' is allowed to spend ' +
               remaining +
-              " from " +
+              ' from ' +
               this.state.owner,
             button_status: true,
-            button_text: "Check Allowance"
+            button_text: 'Check Allowance'
           });
         })
         .catch(err => {
           alert(err);
           this.setState({
             button_status: true,
-            button_text: "Check Allowance"
+            button_text: 'Check Allowance'
           });
         });
     }

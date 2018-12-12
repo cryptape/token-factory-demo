@@ -3,7 +3,7 @@
  */
 import React from 'react';
 
-import TopNav from '../../components/TopNav/index';
+import TopNav from '../../components/TopNav';
 import { getAttrs } from '../../contracts/tokenStore';
 import Transfers from './func/Transfers';
 import ApproveAccount from './func/ApproveAccount';
