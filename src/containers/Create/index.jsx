@@ -1,30 +1,31 @@
 /**
  * Created by 包俊 on 2018/8/14.
  */
-import React from "react";
-import TopNav from "../../components/TopNav/index";
-import SupplyInput from "../../components/Input/index";
-import NameInput from "../../components/Input/index";
-import DecimalInput from "../../components/Input/index";
-import SymbolInput from "../../components/Input/index";
-import { deploy } from "../../contracts/tokenStore";
-import Button from "../../components/Button/index";
+import React from 'react';
+import TopNav from '../../components/TopNav/index';
+import SupplyInput from '../../components/Input/index';
+import NameInput from '../../components/Input/index';
+import DecimalInput from '../../components/Input/index';
+import SymbolInput from '../../components/Input/index';
+import { deploy } from '../../contracts/tokenStore';
+import Button from '../../components/Button/index';
 
-let input_totally_supply = "eg. 10";
-let input_name = "eg. Nervos";
-let input_decimal_places = "eg. 4";
-let input_symbol = "eg. NOS";
+let input_totally_supply = 'eg. 10';
+let input_name = 'eg. Nervos';
+let input_decimal_places = 'eg. 4';
+let input_symbol = 'eg. NOS';
 
 export default class Create extends React.Component {
   constructor() {
     super();
     this.state = {
-      input_totally_supply: "",
-      input_name: "",
-      input_decimal_places: "",
-      input_symbol: "",
-      button_status: "true",
-      button_text: "Create Token"
+      input_totally_supply: '',
+      input_name: '',
+      input_decimal_places: '',
+      input_symbol: '',
+      button_status: 'true',
+      button_text: 'Create Token',
+      contract_address: ''
     };
   }
 
@@ -38,28 +39,28 @@ export default class Create extends React.Component {
           Create Token Contract with the following parameters.
         </text>
         <SupplyInput
-          title={"totally supply"}
+          title={'totally supply'}
           value={input_totally_supply}
           inputChanged={input => {
             this.setState({ input_totally_supply: input });
           }}
         />
         <NameInput
-          title={"name"}
+          title={'name'}
           value={input_name}
           inputChanged={input => {
             this.setState({ input_name: input });
           }}
         />
         <DecimalInput
-          title={"decimal"}
+          title={'decimal'}
           value={input_decimal_places}
           inputChanged={input => {
             this.setState({ input_decimal_places: input });
           }}
         />
         <SymbolInput
-          title={"symbol"}
+          title={'symbol'}
           value={input_symbol}
           inputChanged={input => {
             this.setState({ input_symbol: input });
@@ -70,20 +71,23 @@ export default class Create extends React.Component {
           button_text={this.state.button_text}
           onClick={() => this._create()}
         />
+        <text style={Styles.TextContractAddress}>
+          {this.state.contract_address}
+        </text>
       </div>
     );
   }
 
   _create() {
     if (
-      this.state.input_totally_supply !== "" &&
-      this.state.input_name !== "" &&
-      this.state.input_decimal_places !== "" &&
-      this.state.input_symbol !== ""
+      this.state.input_totally_supply !== '' &&
+      this.state.input_name !== '' &&
+      this.state.input_decimal_places !== '' &&
+      this.state.input_symbol !== ''
     ) {
       window.onSignError = (position, protocol) =>
         this._onSignError(position, protocol);
-      this.setState({ button_text: "Submitting...", button_status: false });
+      this.setState({ button_text: 'Submitting...', button_status: false });
       deploy([
         this.state.input_totally_supply,
         this.state.input_name,
@@ -93,8 +97,12 @@ export default class Create extends React.Component {
         .then(receipt => {
           console.log(receipt.contractAddress);
           if (receipt.contractAddress) {
-            this.setState({ button_text: "Success!" });
-            this.props.history.push("/token/" + receipt.contractAddress);
+            this.setState({ button_text: 'Success!' });
+            alert('Success!');
+            this.setState({
+              contract_address: 'Contract Address: ' + receipt.contractAddress
+            });
+            // this.props.history.push("/token/" + receipt.contractAddress);
           } else {
             this._error(receipt.errorMessage);
           }
@@ -104,7 +112,7 @@ export default class Create extends React.Component {
   }
 
   _error(msg) {
-    this.setState({ button_text: "Create Token", button_status: true });
+    this.setState({ button_text: 'Create Token', button_status: true });
     alert(msg);
   }
 
@@ -112,16 +120,16 @@ export default class Create extends React.Component {
     alert(protocol);
     this.setState({
       button_status: true,
-      button_text: "Create Token"
+      button_text: 'Create Token'
     });
   }
 }
 
 const Styles = {
   Content: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   Logo: {
     width: 150,
@@ -138,27 +146,33 @@ const Styles = {
   },
   Button: {
     marginTop: 10,
-    border: "none",
-    color: "#000000",
-    background: "#ffffff",
+    border: 'none',
+    color: '#000000',
+    background: '#ffffff',
     borderRadius: 3
   },
   ButtonClickAble: {
     marginTop: 20,
-    backgroundColor: "#2e6da4",
-    padding: "6px 12px",
-    color: "#fff",
-    border: "1px solid #2e6da4",
-    borderRadius: "4px",
-    fontSize: "14px"
+    backgroundColor: '#2e6da4',
+    padding: '6px 12px',
+    color: '#fff',
+    border: '1px solid #2e6da4',
+    borderRadius: '4px',
+    fontSize: '14px'
   },
   ButtonUnClickAble: {
     marginTop: 20,
-    backgroundColor: "#d0d0d0",
-    padding: "6px 12px",
-    color: "#000",
-    border: "1px solid #2e6da4",
-    borderRadius: "4px",
-    fontSize: "14px"
+    backgroundColor: '#d0d0d0',
+    padding: '6px 12px',
+    color: '#000',
+    border: '1px solid #2e6da4',
+    borderRadius: '4px',
+    fontSize: '14px'
+  },
+  TextContractAddress: {
+    marginTop: 10,
+    marginLeft: 30,
+    marginRight: 30,
+    fontSize: 14
   }
 };
