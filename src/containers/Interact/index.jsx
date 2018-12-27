@@ -1,20 +1,20 @@
 /**
  * Created by 包俊 on 2018/8/14.
  */
-import React from "react";
-import TopNav from "../../components/TopNav/index";
-import Input from "../../components/Input/index";
-import Button from "../../components/Button/index";
+import React from 'react';
+import TopNav from '../../components/TopNav';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 
-const hint = "0x000000";
+const hint = '0x000000';
 
 export default class Interact extends React.Component {
   constructor() {
     super();
     this.state = {
-      input: "",
+      input: '',
       button_status: true,
-      button_text: "Go To Token"
+      button_text: 'Go To Token'
     };
   }
 
@@ -26,7 +26,7 @@ export default class Interact extends React.Component {
           Enter the address of the token contract you want to interact with:
         </text>
         <Input
-          title={"address"}
+          title={'address'}
           value={hint}
           onKeyDown={e => this._enterPress(e)}
           inputChanged={input => {
@@ -52,18 +52,18 @@ export default class Interact extends React.Component {
   }
 
   _search() {
-    if (this.state.input !== "") {
-      this.props.history.push("/token/" + this.state.input);
-      this.setState({ button_text: "Searching...", button_status: false });
+    if (this.state.input) {
+      this.props.history.push('/token/' + this.state.input);
+      this.setState({ button_text: 'Searching...', button_status: false });
     }
   }
 }
 
 const Styles = {
   Content: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   Tip: {
     marginTop: 40,
@@ -73,21 +73,21 @@ const Styles = {
   },
   ButtonClickAble: {
     marginTop: 20,
-    backgroundColor: "#2e6da4",
-    padding: "6px 12px",
-    color: "#fff",
-    border: "1px solid #2e6da4",
-    borderRadius: "4px",
-    fontSize: "14px"
+    backgroundColor: '#2e6da4',
+    padding: '6px 12px',
+    color: '#fff',
+    border: '1px solid #2e6da4',
+    borderRadius: '4px',
+    fontSize: '14px'
   },
   ButtonUnClickAble: {
     marginTop: 20,
-    backgroundColor: "#d0d0d0",
-    padding: "6px 12px",
-    color: "#000",
-    border: "1px solid #2e6da4",
-    borderRadius: "4px",
-    fontSize: "14px"
+    backgroundColor: '#d0d0d0',
+    padding: '6px 12px',
+    color: '#000',
+    border: '1px solid #2e6da4',
+    borderRadius: '4px',
+    fontSize: '14px'
   },
   Button: {
     marginTop: 10

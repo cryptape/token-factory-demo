@@ -1,22 +1,22 @@
 /**
  * Created by 包俊 on 2018/8/16.
  */
-import React from "react";
-import { Styles } from "./style";
-import InputTo from "../../../components/Input/index";
-import Button from "../../../components/Button/index";
-import { balanceOf } from "../../../contracts/tokenStore";
+import React from 'react';
+import { Styles } from './style';
+import InputTo from '../../../components/Input';
+import Button from '../../../components/Button';
+import { balanceOf } from '../../../contracts/tokenStore';
 
-const toHint = "eg. 0x1ce21fa";
+const toHint = 'eg. 0x1ce21fa';
 
 export default class ApproveAccount extends React.Component {
   constructor() {
     super();
     this.state = {
-      to: "",
+      to: '',
       button_status: true,
-      button_text: "Check Balance",
-      balance: ""
+      button_text: 'Check Balance',
+      balance: ''
     };
   }
 
@@ -26,7 +26,7 @@ export default class ApproveAccount extends React.Component {
         <text style={Styles.Title}>Check Balance</text>
         <text style={Styles.Tip}>Check balance of account.</text>
         <InputTo
-          title={"to"}
+          title={'to'}
           def={this.state.to}
           value={toHint}
           inputChanged={input => {
@@ -44,20 +44,20 @@ export default class ApproveAccount extends React.Component {
   }
 
   _checkBalaceOf() {
-    if (this.state.to !== "") {
-      this.setState({ button_status: false, button_text: "Checking..." });
+    if (this.state.to) {
+      this.setState({ button_status: false, button_text: 'Checking...' });
       balanceOf(this.props.contractAddress, this.state.to)
         .then(balance => {
           this.setState({
-            balance: "Balance of " + this.state.to + " is " + balance,
+            balance: 'Balance of ' + this.state.to + ' is ' + balance,
             button_status: true,
-            button_text: "Check Balance"
+            button_text: 'Check Balance'
           });
         })
         .catch(err => {
           this.setState({
             button_status: true,
-            button_text: "Check Balance"
+            button_text: 'Check Balance'
           });
         });
     }
