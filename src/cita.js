@@ -1,17 +1,17 @@
 const {
-  default: AppChain
-} = require('@appchain/base')
+  default: CITASDK
+} = require('@cryptape/cita-sdk')
 
 const config = require('./config')
 
 var cita;
 
 if (typeof window.cita !== 'undefined') {
-  cita = AppChain(window.cita.currentProvider);
+  cita = CITASDK(window.cita.currentProvider);
   cita.currentProvider.setHost(config.chain);
 } else {
   console.log('No cita ? You should consider trying Cyton!')
-  cita = AppChain(config.chain);
+  cita = CITASDK(config.chain);
 }
 
 module.exports = cita
