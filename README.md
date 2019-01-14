@@ -1,6 +1,6 @@
 # Token Factory
 
-The Token Factory can create a simple standard ERC20 token on AppChain. It requires @nervos/chain  and it runs on the Neuron.(We highly recommend using the Neuron for a better experience).
+The Token Factory can create a simple standard ERC20 token on AppChain. It requires @nervos/chain  and it runs on the Cyton.(We highly recommend using the Cyton for a better experience).
 It will tell you how transplant a Eth Dapp to AppChain.We build a [ConsenSys/Token-Factory](https://github.com/ConsenSys/Token-Factory) in AppChain and we use his contract.You can compare the transplant.
 > Notice: Please read [First Forever](https://github.com/cryptape/dapp-demos/tree/develop/first-forever) first.It will show the entire process of building a MVP Dapp on Appchain.
 
@@ -56,7 +56,7 @@ This step is very familiar to webapp developers, [Router](https://github.com/cry
 All above are just traditional webapp development, and next we are going to dapp development.
 ## 3. Nervos.js
 
-This step instructs how to have a Dapp running on Nervos Appchain and Neuron.
+This step instructs how to have a Dapp running on Nervos Appchain and Cyton.
 
 The Dapp interacts with Appchain by the `nervos.js` and details of `nervos` can be accessed at [@nervos/chain](https://www.npmjs.com/package/@nervos/chain)
 
@@ -71,7 +71,7 @@ if (typeof window.nervos !== 'undefined') {
     window.nervos = Nervos(window.nervos.currentProvider);
     window.nervos.currentProvider.setHost("http://121.196.200.225:1337");
 } else {
-    console.log('No Nervos web3? You should consider trying Neuron!')
+    console.log('No CITA web3? You should consider trying Cyton!')
     window.nervos = Nervos('http://121.196.200.225:1337');
 }
 var nervos = window.nervos
@@ -272,7 +272,7 @@ module.exports = transaction
 -Depoly with args
 ```
 export const getTX = () =>
-  nervos.appchain.getBlockNumber().then(current => {
+  nervos.cita.getBlockNumber().then(current => {
     //const tx = {
     //  ...transaction,
     //  from: "your address",
@@ -281,13 +281,13 @@ export const getTX = () =>
     //};
      const tx = {
        ...transaction,
-       from: window.neuron.getAccount(),
+       from: window.cyton.getAccount(),
        validUntilBlock: +current + 88
      };
     return tx;
   });
 ```
-First setting is deploy by @nervos/chain.Second setting is deploy on Neuron.
+First setting is deploy by @nervos/chain.Second setting is deploy on cyton.
 ```
 export const deploy = async function(args) {
   return new Promise((resolve, reject) => {
@@ -332,7 +332,7 @@ export const deploy = async function(args) {
   });
 };
 ```
-<h5>Notice:There is a different in send(tx) return,if you run in Neuron,it will return just hash like this </h5>
+<h5>Notice:There is a different in send(tx) return,if you run in Cyton,it will return just hash like this </h5>
 
 0x0f3304454f47bd1c4a60ef68547d279f5c4deba6f30947c8ed53526f2bed099c
 
@@ -422,7 +422,7 @@ export const checkAllowance = async function (contract, owner, spender) {
 ### 2.Transfer send(tx)
 ```
 export const getTX = () =>
-  nervos.appchain.getBlockNumber().then(current => {
+  nervos.cita.getBlockNumber().then(current => {
     //const tx = {
     //  ...transaction,
     //  from: "your address",
@@ -431,7 +431,7 @@ export const getTX = () =>
     //};
      const tx = {
        ...transaction,
-       from: window.neuron.getAccount(),
+       from: window.cyton.getAccount(),
        validUntilBlock: +current + 88
      };
     return tx;
@@ -479,8 +479,8 @@ export const transfer = async function (contract, to, amount) {
     });
 };
 ```
-### 3.Neuron special callback
-If you run on the Neuron,we have two callbacks.There are not in @nervos/chain.
+### 3.Cyton special callback
+If you run on the Cyton,we have two callbacks.There are not in @nervos/chain.
 
 ```
 onSignError(position, protocol)
@@ -572,4 +572,4 @@ When sign successfully,we will callback on onSignSuccessful.
   }
 ```
 
-<h4>It just works on Neuron!If you use explorer,it will not works.Please use 2.Transfer send(tx) </h4>
+<h4>It just works on Cyton!If you use explorer,it will not works.Please use 2.Transfer send(tx) </h4>
