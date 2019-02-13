@@ -1,28 +1,28 @@
 import { abi, bytecode } from '../contracts/compiled';
 
-const appchain = require('../appchain');
+const cita = require('../cita');
 const transaction = require('./transaction');
 
 export const getAbi = function(contractAddress) {
-  return appchain.base.getAbi(contractAddress);
+  return cita.base.getAbi(contractAddress);
 };
 
 export const getContract = function(abi, contractAddress) {
-  return new appchain.base.Contract(abi, contractAddress);
+  return new cita.base.Contract(abi, contractAddress);
 };
 
 export const deploy = async function(args) {
   return new Promise((resolve, reject) => {
     getTX()
       .then(tx => {
-        const contract = new appchain.base.Contract(abi);
+        const contract = new cita.base.Contract(abi);
         contract
           .deploy({ data: bytecode, arguments: args })
           .send(tx)
           .then(res => {
             console.log(res);
             if (res.hash) {
-              return appchain.listeners
+              return cita.listeners
                 .listenToTransactionReceipt(res.hash)
                 .then(receipt => {
                   console.log(JSON.stringify(receipt));
@@ -53,7 +53,7 @@ export const getTokenContract = function(contractAddress) {
 };
 
 export const getTX = () =>
-  appchain.base.getBlockNumber().then(current => {
+cita.base.getBlockNumber().then(current => {
     // const tx = {
     //   ...transaction,
     //   from: "your address",
@@ -63,7 +63,7 @@ export const getTX = () =>
     // };
     const tx = {
       ...transaction,
-      from: window.neuron.getAccount(),
+      from: window.cyton.getAccount(),
       validUntilBlock: +current + 88
     };
     return tx;
@@ -138,7 +138,7 @@ export const transfer = async function(contract, to, amount) {
             hash = res;
           }
           if (hash) {
-            appchain.listeners
+            cita.listeners
               .listenToTransactionReceipt(hash)
               .then(receipt => {
                 console.log(receipt);
@@ -179,7 +179,7 @@ export const approveAccount = async function(contract, to, amount) {
             hash = res;
           }
           if (hash) {
-            appchain.listeners
+            cita.listeners
               .listenToTransactionReceipt(hash)
               .then(receipt => {
                 console.log(receipt);

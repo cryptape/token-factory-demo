@@ -85,7 +85,6 @@ export default class Create extends React.Component {
       this.state.input_decimal_places &&
       this.state.input_symbol
     ) {
-      alert('start');
       window.onSignError = (position, protocol) =>
         this._onSignError(position, protocol);
       this.setState({ button_text: 'Submitting...', button_status: false });

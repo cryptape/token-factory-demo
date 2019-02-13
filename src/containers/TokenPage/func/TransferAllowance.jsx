@@ -8,7 +8,7 @@ import InputTo from '../../../components/Input';
 import InputAmount from '../../../components/Input';
 import Button from '../../../components/Button';
 import { transferAllowance } from '../../../contracts/tokenStore';
-import appchain from '../../../appchain';
+import cita from '../../../cita';
 
 const fromHint = 'eg. 0x1287fasjs';
 const toHint = 'eg. 0x1ce21fa';
@@ -96,7 +96,7 @@ export default class ApproveAccount extends React.Component {
       button_text: 'pending...'
     });
     window.onSignSuccessful = null;
-    appchain.listeners
+    cita.listeners
       .listenToTransactionReceipt(protocol)
       .then(receipt => {
         console.log(receipt);
