@@ -11,9 +11,9 @@ import { deploy } from '../../contracts/tokenStore';
 import Button from '../../components/Button';
 
 let input_totally_supply = 'eg. 10';
-let input_name = 'eg. Nervos';
+let input_name = 'eg. CITA HUB TEST';
 let input_decimal_places = 'eg. 4';
-let input_symbol = 'eg. NOS';
+let input_symbol = 'eg. CHT';
 
 export default class Create extends React.Component {
   constructor() {
@@ -71,9 +71,7 @@ export default class Create extends React.Component {
           button_text={this.state.button_text}
           onClick={() => this._create()}
         />
-        <text style={Styles.TextContractAddress}>
-          {this.state.contract_address}
-        </text>
+        {this._renderPush()}
       </div>
     );
   }
@@ -100,7 +98,7 @@ export default class Create extends React.Component {
             this.setState({ button_text: 'Success!' });
             alert('Success!');
             this.setState({
-              contract_address: 'Contract Address: ' + receipt.contractAddress
+              contract_address: receipt.contractAddress
             });
             // this.props.history.push("/token/" + receipt.contractAddress);
           } else {
@@ -108,6 +106,26 @@ export default class Create extends React.Component {
           }
         })
         .catch(err => this._error(err));
+    }
+  }
+
+  _renderPush() {
+    if (this.state.contract_address) {
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          <text style={Styles.TextContractAddress}>
+            {`Contract address:`}
+          </text>
+          <text style={Styles.TextContractAddress}>
+            {this.state.contract_address}
+          </text>
+          <Button
+            button_status={true}
+            button_text={'transfer'}
+            onClick={() => { this.props.history.push("/token/" + this.state.contract_address) }}
+          />
+        </div>
+      )
     }
   }
 
