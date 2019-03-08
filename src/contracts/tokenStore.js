@@ -3,15 +3,15 @@ import { abi, bytecode } from '../contracts/compiled';
 const cita = require('../cita');
 const transaction = require('./transaction');
 
-export const getAbi = function(contractAddress) {
+export const getAbi = function (contractAddress) {
   return cita.base.getAbi(contractAddress);
 };
 
-export const getContract = function(abi, contractAddress) {
+export const getContract = function (abi, contractAddress) {
   return new cita.base.Contract(abi, contractAddress);
 };
 
-export const deploy = async function(args) {
+export const deploy = async function (args) {
   return new Promise((resolve, reject) => {
     getTX()
       .then(tx => {
@@ -48,12 +48,12 @@ export const deploy = async function(args) {
   });
 };
 
-export const getTokenContract = function(contractAddress) {
+export const getTokenContract = function (contractAddress) {
   return getContract(abi, contractAddress);
 };
 
 export const getTX = () =>
-cita.base.getBlockNumber().then(current => {
+  cita.base.getBlockNumber().then(current => {
     // const tx = {
     //   ...transaction,
     //   from: "your address",
@@ -69,7 +69,7 @@ cita.base.getBlockNumber().then(current => {
     return tx;
   });
 
-export const getAttrs = async function(contract, attr) {
+export const getAttrs = async function (contract, attr) {
   return await new Promise((resolve, reject) => {
     if (attr === 'name') {
       getTokenContract(contract)
@@ -99,7 +99,7 @@ export const getAttrs = async function(contract, attr) {
   });
 };
 
-export const balanceOf = async function(contract, address) {
+export const balanceOf = async function (contract, address) {
   return await new Promise((resolve, reject) => {
     getTokenContract(contract)
       .methods.balanceOf(address)
@@ -111,7 +111,7 @@ export const balanceOf = async function(contract, address) {
   });
 };
 
-export const checkAllowance = async function(contract, owner, spender) {
+export const checkAllowance = async function (contract, owner, spender) {
   return await new Promise((resolve, reject) => {
     getTokenContract(contract)
       .methods.allowance(owner, spender)
@@ -123,7 +123,7 @@ export const checkAllowance = async function(contract, owner, spender) {
   });
 };
 
-export const transfer = async function(contract, to, amount) {
+export const transfer = async function (contract, to, amount) {
   return await new Promise((resolve, reject) => {
     getTX().then(tx => {
       getTokenContract(contract)
@@ -164,7 +164,7 @@ export const transfer = async function(contract, to, amount) {
   });
 };
 
-export const approveAccount = async function(contract, to, amount) {
+export const approveAccount = async function (contract, to, amount) {
   return await new Promise((resolve, reject) => {
     getTX().then(tx => {
       getTokenContract(contract)
@@ -205,7 +205,7 @@ export const approveAccount = async function(contract, to, amount) {
   });
 };
 
-export const transferAllowance = function(contract, from, to, amount) {
+export const transferAllowance = function (contract, from, to, amount) {
   getTX().then(tx => {
     getTokenContract(contract)
       .methods.transferFrom(from, to, amount)
